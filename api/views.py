@@ -1,4 +1,7 @@
+from api.models import Favoris
 from django.shortcuts import render
+from .serializers import FavorisSerializer
+from rest_framework import viewsets
 import requests
 from django.http import JsonResponse
 import os
@@ -39,3 +42,7 @@ def business_detail(request, business_id):
   
 
     return JsonResponse(business_info)
+
+class FavorisViewSet(viewsets.ModelViewSet):
+    queryset = Favoris.objects.all()
+    serializer_class = FavorisSerializer
