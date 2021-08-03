@@ -1,11 +1,14 @@
 from api.models import Favoris
 from django.shortcuts import render
-from .serializers import FavorisSerializer
+from .serializers import FavorisSerializer, UserSerializer
 from rest_framework import viewsets
 import requests
 from django.http import JsonResponse
 import os
 from dotenv import load_dotenv
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.models import User
 
 load_dotenv()
 
@@ -46,3 +49,10 @@ def business_detail(request, business_id):
 class FavorisViewSet(viewsets.ModelViewSet):
     queryset = Favoris.objects.all()
     serializer_class = FavorisSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = (TokenAuthentication,)
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
