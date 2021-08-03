@@ -46,6 +46,12 @@ def business_detail(request, business_id):
 
     return JsonResponse(business_info)
 
+# ----------------------add favoris----------------------
+
+# save result once client add a business as favoris
+
+# ----------------------add favoris----------------------
+
 class FavorisViewSet(viewsets.ModelViewSet):
     queryset = Favoris.objects.all()
     serializer_class = FavorisSerializer
