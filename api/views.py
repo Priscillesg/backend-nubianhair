@@ -17,7 +17,6 @@ load_dotenv()
 def yelp_search(request=None):
     token = os.environ.get('API_KEY')
 
-    # token = "Z1I-d_WXmtZ0e8Lfz5nGwW9K1rjGcIMbG5VU-E9nrVm8pVZF3cs-3aJgBbEcGd6GSNMoIXiA_80yOkhCVKTr_AQe8oKDDwMAY2uvk_yuS7R_c5VH_D7Kfn1XnoEDYXYx"
     YELP_SEARCH_ENDPOINT = "https://api.yelp.com/v3/businesses/search"
     headers = {"Authorization": "Bearer " + token}
     params = {'term': 'black hair salon', 'location': 'houston'}
@@ -33,7 +32,6 @@ def yelp_search(request=None):
 
 def business_detail(request, business_id):
     # business_id = "oQRH4El0rM5MCoFxLdtiMA"
-    # token = "Z1I-d_WXmtZ0e8Lfz5nGwW9K1rjGcIMbG5VU-E9nrVm8pVZF3cs-3aJgBbEcGd6GSNMoIXiA_80yOkhCVKTr_AQe8oKDDwMAY2uvk_yuS7R_c5VH_D7Kfn1XnoEDYXYx"
     token = os.environ.get('API_KEY')
     YELP_DETAIL_ENDPOINT = "https://api.yelp.com/v3/businesses/{}".format(business_id)
     headers = {"Authorization": "Bearer " + token}
