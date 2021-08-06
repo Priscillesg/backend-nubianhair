@@ -9,33 +9,46 @@ from dotenv import load_dotenv
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
+from rest_framework.decorators import api_view
+from django.http import HttpResponseBadRequest
 
 load_dotenv()
 
-
-
+# get all businesses
+@api_view(['GET'])
 def yelp_search(request=None):
+    print(request.query_params)
+    term =  request.query_params.get('term', None)
+    location = request.query_params.get('location', None)
     token = os.environ.get('API_KEY')
 
+    if term is None:
+        return HttpResponseBadRequest()
+
+
     YELP_SEARCH_ENDPOINT = "https://api.yelp.com/v3/businesses/search"
-    headers = {"Authorization": "Bearer " + token}
-    params = {'term': 'black hair salon', 'location': 'houston'}
+    headers = {'Authorization': 'Bearer '  + token}
+    params = { 'term' :term, 'location' :location}
 
     r = requests.get(YELP_SEARCH_ENDPOINT, headers=headers, params=params)
 
     r=r.json()
+    print(r)
     data = r.get('businesses')
     
 
     return JsonResponse(data, safe=False)
 
-
+# get one businesses
+@api_view(["GET"])
 def business_detail(request, business_id):
-    # business_id = "oQRH4El0rM5MCoFxLdtiMA"
+    # business_id =  request.query_params["business_id"]
+    # business_id = request.get("business_id")
+   
+    
     token = os.environ.get('API_KEY')
     YELP_DETAIL_ENDPOINT = "https://api.yelp.com/v3/businesses/{}".format(business_id)
     headers = {"Authorization": "Bearer " + token}
-    # params = {'term': 'black hair salon', 'location': 'houston'}
 
     r = requests.get(YELP_DETAIL_ENDPOINT, headers=headers)
     business_info=r.json()

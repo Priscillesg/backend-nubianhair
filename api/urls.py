@@ -9,7 +9,7 @@ router.register('users', UserViewSet)
 
 urlpatterns = [
     path('api_list/', yelp_search),
-    path('api_list/<str:business_id>/', business_detail),
+    path('api_list/<business_id>', business_detail),
     path('api/', include(router.urls)),
 
 ]
