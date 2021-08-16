@@ -12,6 +12,4 @@ class Favoris(models.Model):
     def __str__(self):
         return self.name
     
-    # display_address = models.CharField(max_length=200)
-    # display_phone =  models.CharField(max_length=200)
-    # rating = models.DecimalField(max_digits=9, decimal_places=2)
+  
